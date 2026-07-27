@@ -210,7 +210,7 @@ Sentence-BERT/
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/sentence-bert-from-scratch.git
+git clone https://github.com/Khokhani-hem/sentence-bert-from-scratch.git
 
 cd sentence-bert-from-scratch
 ```
