@@ -1,0 +1,15 @@
+training:
+  seed: 42
+  epochs: 4
+  batch_size: 16
+  learning_rate: 2e-5
+  weight_decay: 0.01
+  warmup_steps: 100
+  gradient_accumulation_steps: 1
+  mixed_precision: true
+  max_grad_norm: 1.0
+  early_stopping_patience: 2
+
+paths:
+  output_dir: "outputs/checkpoints/"
+  log_dir: "outputs/logs/"
