@@ -11,23 +11,6 @@ The primary objective is to understand how sentence embedding models are built i
 
 ---
 
-## Motivation
-
-Standard BERT works as a **cross-encoder**, requiring both sentences to be processed together.
-
-For semantic search, comparing one query against thousands of documents requires thousands of forward passes.
-
-Sentence-BERT solves this by learning independent sentence embeddings using a Siamese network, allowing semantic similarity to be computed with simple vector operations.
-
-Benefits include:
-
-- Fast semantic search
-- Efficient information retrieval
-- Scalable sentence embedding generation
-- Vector database compatibility (FAISS, Milvus, Pinecone, etc.)
-
----
-
 # Features
 
 - Custom SBERT implementation from scratch
@@ -170,37 +153,59 @@ Mean pooling consistently provides the strongest performance for semantic simila
 # Project Structure
 
 ```
-Sentence-BERT/
+sentence-bert-from-scratch/
 │
 ├── configs/
 │   ├── model.yaml
 │   └── train.yaml
 │
-├── data/
 │
 ├── outputs/
-│   ├── checkpoints/
-│   ├── logs/
-│   └── visualizations/
 │
 ├── src/
-│   ├── datasets/
+│   ├── __init__.py
+│   │
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── loader.py
+│   │   └── preprocessing.py
+│   │
 │   ├── losses/
+│   │   ├── __init__.py
+│   │   ├── cosine_loss.py
+│   │   ├── contrastive_loss.py
+│   │   ├── triplet_loss.py
+│   │   └── multiple_negative_ranking.py
+│   │
 │   ├── models/
+│   │   ├── __init__.py
 │   │   ├── bert_encoder.py
 │   │   ├── pooling.py
-│   │   └── siamese_network.py
+│   │   └── siamese.py
 │   │
-│   ├── trainer/
-│   ├── evaluator/
-│   ├── utils/
-│   └── visualization.py
+│   ├── retrieval/
+│   │   ├── __init__.py
+│   │   ├── faiss_index.py
+│   │   └── semantic_search.py
+│   │
+│   ├── training/
+│   │   ├── __init__.py
+│   │   ├── evaluator.py
+│   │   └── trainer.py
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       ├── logger.py
+│       ├── metrics.py
+│       ├── seed.py
+│       └── visualization.py
 │
-├── train.py
+├── .gitignore
 ├── evaluate.py
+├── inference.py
 ├── pyproject.toml
-├── uv.lock
-└── README.md
+├── README.md
+└── train.py
 ```
 
 ---
@@ -234,8 +239,7 @@ uv run train.py
 # Evaluation
 
 ```bash
-uv run evaluate.py \
---checkpoint outputs/checkpoints/cosine_mean/best_model.pt
+uv run evaluate.py --checkpoint outputs/checkpoints/cosine_mean/best_model.pt
 ```
 
 ---
